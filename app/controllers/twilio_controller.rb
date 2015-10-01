@@ -32,7 +32,7 @@ class TwilioController < ApplicationController
 
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_auth_token
 
-    @twilio_client.account.sms.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => "Hey Hobbs lover, we're in business! Call this number when you get dont with this for a special message")
+    @twilio_client.account.sms.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => "Hey Hobbs lover, we're in business! Call this number when you get done reading the text for a special message")
 
 
   end 
