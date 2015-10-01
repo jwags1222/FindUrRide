@@ -10,8 +10,7 @@ class TwilioController < ApplicationController
  
   def voice
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Hey there Ray, We have integrated voice in our application.', :voice => 'alice'
-         r.Play 'https://www.youtube.com/watch?v=04KQydlJ-qc'
+      r.Say 'Hey there Ray, We have integrated voice in our application. You are still very gay. ', :voice => 'alice'
     end
  
     render_twiml response
