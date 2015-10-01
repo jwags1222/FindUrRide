@@ -7,4 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Prospect.create(name: 'Karen')
 Prospect.create(name: 'Steph')
-Pospect.create(name: 'Jen')
+Prospect.create(name: 'Jen')
