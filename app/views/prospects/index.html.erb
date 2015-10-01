@@ -1,0 +1,13 @@
+<p class='lead'> 
+  All Prospects 
+  <hr/> 
+</p>
+
+<% @prospects.each do |prospect| %> 
+  <div class = "row" > 
+    <div class='span8 well'> 
+      <h4> <%= prospect.name %> </h4> 
+    </div> 
+  </div> 
+
+  <% end %> 
