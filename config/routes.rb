@@ -4,4 +4,5 @@ PostitTemplate::Application.routes.draw do
   resources :prospects
 
   post 'twilio/voice', to: 'twilio#voice'
+  post 'twilio/text', to: 'twilio#text'
 end
