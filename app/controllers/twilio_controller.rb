@@ -18,8 +18,8 @@ class TwilioController < ApplicationController
 
   def text
 
-    message_body = params["Body"]
-    from_number = params["From"]
+    #message_body = params["Body"]
+    #from_number = params["From"]
 
     #SMSLogger.log_text_message from_number, message_body
 
@@ -32,8 +32,8 @@ class TwilioController < ApplicationController
 
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_auth_token
 
-    @twilio_client.account.sms.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => "Hey Hobbs lover, we're in business! Call this number when you get done reading the text for a special message")
-
+    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => "Hey Hobbs lover!")
+    redirect_to root_path, notice: 'Your SMS has been sent'
 
   end 
 end
