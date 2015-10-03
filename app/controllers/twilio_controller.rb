@@ -21,6 +21,8 @@ class TwilioController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
+    car_requested = Car.where(stockid: message_body)
+
     #SMSLogger.log_text_message from_number, message_body
 
     twilio_sid = 'AC06d72653ea2dca08e960c186cd893355'
@@ -32,7 +34,8 @@ class TwilioController < ApplicationController
 
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_auth_token
 
-    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => "Hello Hobbs lover. Thanks for texting me about #{message_body}")
+    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => "Thank you for your interest in the #{car_requested.last.make}. Please see a link that contains a price at #{car_requested.last.link}")
+
     redirect_to root_path, notice: 'Your SMS has been sent'
 
   end 
