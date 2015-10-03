@@ -34,7 +34,8 @@ class TwilioController < ApplicationController
 
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_auth_token
 
-    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => "Thank you for your interest in the #{car_requested.last.make}. Please see a link that contains a price at #{car_requested.last.link}")
+    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => "Hello from Used Car World! Thank you for your interest in the #{car_requested.last.year}, #{car_requested.last.make} . Please see this link with all of the information you could need including price #{car_requested.last.link}")
+    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => "Another lead from LeadFeed!  #{from_number} texted us about the #{car_requested.last.year},  #{car_requested.last.make} #{car_requested.last.model}. You will receive an email update with all of your leads at the end of the day.  Thank you for your business")
 
     redirect_to root_path, notice: 'Your SMS has been sent'
 
