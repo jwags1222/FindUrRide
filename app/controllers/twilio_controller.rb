@@ -34,8 +34,8 @@ class TwilioController < ApplicationController
 
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_auth_token
 
-    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => "Hello from Used Car World!! \n\nThank you for your interest in the #{car_requested.last.year}, #{car_requested.last.make} . Please see this link with all of the information you could need including price #{car_requested.last.link}. \n\nAlso feel free to use this link if you'd like to get preapproved: https://www.linkedin.com/pub/jayson-hobbs/3/713/8b9")
-    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => "Another lead from LeadFeed!  \n\n#{from_number} texted us about the #{car_requested.last.year},  #{car_requested.last.make} #{car_requested.last.model}. You will receive an email update with all of your leads at the end of the day.  \n\nThank you for your business")
+    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from Used Car World!! \n\nThank you for your interest in the #{car_requested.last.year}, #{car_requested.last.make} . Please see this link with all of the information you could need including price #{car_requested.last.link}. \n\nAlso feel free to use this link if you'd like to get preapproved: https://www.linkedin.com/pub/jayson-hobbs/3/713/8b9")
+    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => " \n\nAnother lead from LeadFeed!  \n\n#{from_number} texted us about the #{car_requested.last.year},  #{car_requested.last.make} #{car_requested.last.model}. You will receive an email update with all of your leads at the end of the day.  \n\nThank you for your business")
 
     redirect_to root_path, notice: 'Your SMS has been sent'
 
