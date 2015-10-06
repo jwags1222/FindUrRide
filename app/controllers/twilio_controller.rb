@@ -22,6 +22,8 @@ class TwilioController < ApplicationController
     from_number = params["From"]
 
     car_requested = Car.where(stockid: message_body)
+    house_requested = House.where(street_address: message_body)
+
 
     #SMSLogger.log_text_message from_number, message_body
 
@@ -39,6 +41,12 @@ class TwilioController < ApplicationController
         @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from Used Car World!! \n\nThank you for your interest in the #{car_requested.last.year}, #{car_requested.last.make} . Please click on this link to see a price and other information on your car #{car_requested.last.link}. \n\nAlso, you can use this link https://www.linkedin.com/pub/jayson-hobbs/3/713/8b9 to check the value of your trade in.  Enjoy your new car!")
         @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => " \n\nAnother lead from LeadFeed!  \n\n#{from_number} texted us about the #{car_requested.last.year},  #{car_requested.last.make} #{car_requested.last.model}. You will receive an email update with all of your leads at the end of the day.  \n\nThank you for your business")
     
+    elsif house_requested.any?
+
+    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from Coldwell Banker \n\nThank you for your interest in #{house_requested.last.street_address}. Please click on this link to see a price, estimated payment and all other details on this house. #{house_requested.last.link}. \n\n")
+    @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => " \n\nAnother lead from LeadFeed!  \n\n#{from_number} texted us about #{house_requested.last.street_address}. You will receive an email update with all of your leads at the end of the day.  \n\nThank you for your business!")
+     
+
     #elsif message_body == "HELP" || message_body == "Help"
     
         #@twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from Used Car World!! \n\nSorry that you are having trouble. Someone will be reaching out to you shortly.")
@@ -51,7 +59,7 @@ class TwilioController < ApplicationController
     end 
 
 
-    redirect_to root_path, notice: 'Your SMS has been sent'
+    redirect_to root_path 
 
   end 
 end

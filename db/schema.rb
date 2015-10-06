@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929193758) do
+ActiveRecord::Schema.define(version: 20151006181750) do
 
   create_table "car_prospects", force: true do |t|
     t.integer  "car_id"
@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 20150929193758) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+  end
+
+  create_table "houses", force: true do |t|
+    t.string   "mls_number"
+    t.string   "agent"
+    t.string   "street_address"
+    t.string   "link"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "prospects", force: true do |t|
