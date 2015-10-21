@@ -24,7 +24,7 @@ class TwilioController < ApplicationController
     car_requested = Car.where(stockid: message_body)
     house_requested = House.where(street_address: message_body)
 
-    if(car_requested.dealership_id)
+    if(car_requested.last.dealership_id)
       dealership = Dealership.find(car_requested.dealer_id)
     end
 
