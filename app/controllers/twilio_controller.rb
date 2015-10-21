@@ -24,10 +24,6 @@ class TwilioController < ApplicationController
     car_requested = Car.where(stockid: message_body)
     house_requested = House.where(street_address: message_body)
 
-    if(car_requested.last.dealership_id)
-      dealership = Dealership.find(car_requested.last.dealership_id)
-    end
-
     #SMSLogger.log_text_message from_number, message_body
 
     twilio_sid = 'AC06d72653ea2dca08e960c186cd893355'
@@ -45,8 +41,11 @@ class TwilioController < ApplicationController
 
     elsif car_requested.any?
 
-        @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from #{dealership.name}!! \n\nThank you for your interest in the #{car_requested.last.year}, #{car_requested.last.make} #{car_requested.last.model}. Please click on this link to see a price and other information on your car #{car_requested.last.link}.")
-        @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => " \n\nAnother lead from LeadFeed!  \n\n#{from_number} texted us about the #{car_requested.last.year},  #{car_requested.last.make} #{car_requested.last.model}. You will receive an email update with all of your leads at the end of the day.  \n\nThank you for your business")
+      if(car_requested.last.dealership_id)
+        dealership = Dealership.find(car_requested.last.dealership_id)
+      end
+      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from #{dealership.name}!! \n\nThank you for your interest in the #{car_requested.last.year}, #{car_requested.last.make} #{car_requested.last.model}. Follow this link for details and special pricing #{car_requested.last.link}.")
+      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => " \n\nAnother lead from LeadFeed!  \n\n#{from_number} texted us about the #{car_requested.last.year},  #{car_requested.last.make} #{car_requested.last.model}. You will receive an email update with all of your leads at the end of the day.  \n\nThank you for your business")
     
     elsif house_requested.any?
 
@@ -66,7 +65,7 @@ class TwilioController < ApplicationController
     end 
 
 
-    # redirect_to root_path 
+    # redirect_to root_path
 
   end 
 end
