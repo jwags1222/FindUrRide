@@ -39,7 +39,11 @@ class TwilioController < ApplicationController
 
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_auth_token
 
-    if car_requested.any?
+    if message_body.downcase == 'problem'
+
+      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nWe greatly appreciate you taking the time to give us your feedback. Although very painful to hear that you are not completely satisfied, it's feedback like yours that makes us better. You will be contacted shortly by a manager to rectify any issues or concerns. We value you as a customer and will do whatever it takes to make sure you are completely satisfied!")
+
+    elsif car_requested.any?
 
         @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from #{dealership.name}!! \n\nThank you for your interest in the #{car_requested.last.year}, #{car_requested.last.make} #{car_requested.last.model}. Please click on this link to see a price and other information on your car #{car_requested.last.link}.")
         @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => " \n\nAnother lead from LeadFeed!  \n\n#{from_number} texted us about the #{car_requested.last.year},  #{car_requested.last.make} #{car_requested.last.model}. You will receive an email update with all of your leads at the end of the day.  \n\nThank you for your business")
@@ -62,7 +66,7 @@ class TwilioController < ApplicationController
     end 
 
 
-    redirect_to root_path 
+    # redirect_to root_path 
 
   end 
 end
