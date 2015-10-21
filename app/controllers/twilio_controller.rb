@@ -25,7 +25,7 @@ class TwilioController < ApplicationController
     house_requested = House.where(street_address: message_body)
 
     if(car_requested.last.dealership_id)
-      dealership = Dealership.find(car_requested.dealer_id)
+      dealership = Dealership.find(car_requested.last.dealership_id)
     end
 
     #SMSLogger.log_text_message from_number, message_body
