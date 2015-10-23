@@ -40,12 +40,12 @@ class TwilioController < ApplicationController
     if message_body.downcase == 'problem'
 
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nWe greatly appreciate you taking the time to give us your feedback. Although very painful to hear that you are not completely satisfied, it's feedback like yours that makes us better. You will be contacted shortly by a manager to rectify any issues or concerns. We value you as a customer and will do whatever it takes to make sure you are completely satisfied!")
-      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => dealership.phonenumber, :body => " \n\n Unfortunately a customer is not completely satisfied! \n\n No worries, thanks to FYRE it is not too late! Contact #{from_number} asap to rectify any issues or concerns.")
+      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4123035888', :body => " \n\n Unfortunately a customer is not completely satisfied! \n\n No worries, thanks to FYRE it is not too late! Contact #{from_number} asap to rectify any issues or concerns.")
 
     elsif message_body.downcase == 'service'
 
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\n Please follow this link to take advantage of our current specials!  http://bit.ly/1jDgkFe \n\n Also, don't forget to schedule your next visit, with our easy scheduling process! http://bit.ly/1M85nSn")
-      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => dealership.phonenumber, :body => " \n\nAnother service customer has taken advantage of FYRE! \n\n #{from_number} requested your service specials and can now easily schedule their service visit \n\n       A complete list of all customers using this tool will be emailed every Monday am!")
+      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4123035888', :body => " \n\nAnother service customer has taken advantage of FYRE! \n\n #{from_number} requested your service specials and can now easily schedule their service visit \n\n       A complete list of all customers using this tool will be emailed every Monday am!")
 
     elsif @car_requested.present?
 
