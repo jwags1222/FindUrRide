@@ -38,25 +38,16 @@ class TwilioController < ApplicationController
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_auth_token
 
     if message_body.downcase == 'problem'
-      if(@car_requested.dealership_id)
-        dealership = Dealership.find(@car_requested.dealership_id)
-      end
+
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nWe greatly appreciate you taking the time to give us your feedback. Although very painful to hear that you are not completely satisfied, it's feedback like yours that makes us better. You will be contacted shortly by a manager to rectify any issues or concerns. We value you as a customer and will do whatever it takes to make sure you are completely satisfied!")
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => dealership.phonenumber, :body => " \n\n Unfortunately a customer is not completely satisfied! \n\n No worries, thanks to FYRE it is not too late! Contact #{from_number} asap to rectify any issues or concerns.")
 
     elsif message_body.downcase == 'service'
-      if(@car_requested.dealership_id)
-        dealership = Dealership.find(@car_requested.dealership_id)
-      end
+
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\n Please follow this link to take advantage of our current specials!  http://bit.ly/1jDgkFe \n\n Also, don't forget to schedule your next visit, with our easy scheduling process! http://bit.ly/1M85nSn")
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => dealership.phonenumber, :body => " \n\nAnother service customer has taken advantage of FYRE! \n\n #{from_number} requested your service specials and can now easily schedule their service visit \n\n       A complete list of all customers using this tool will be emailed every Monday am!")
 
     elsif @car_requested.present?
-      if @car_requested.link2.nil?
-        @url = client.shorten(@car_requested.link)
-        @car_requested.link2 = @url.short_url.to_s
-        @car_requested.save!
-      end
 
       if(@car_requested.dealership_id)
         dealership = Dealership.find(@car_requested.dealership_id)
@@ -68,12 +59,7 @@ class TwilioController < ApplicationController
 
     @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from Coldwell Banker \n\nThank you for your interest in #{house_requested.last.street_address}. Please click on this link to see a price, estimated payment and all other details on this house. #{house_requested.last.link}. \n\n")
     @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => " \n\nAnother lead from Fyre!  \n\n#{from_number} texted us about #{house_requested.last.street_address}. You will receive an email update with all of your leads at the end of the day.  \n\nThank you for your business!")
-     
 
-    #elsif message_body == "HELP" || message_body == "Help"
-    
-        #@twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nHello from Used Car World!! \n\nSorry that you are having trouble. Someone will be reaching out to you shortly.")
-        #@twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4124273378', :body => " \n\nAnother lead from Fyre!  \n\nA prospect with the number #{from_number} is on your lot and texted us about a car. But they are having trouble and they would like for some additional help. Could be a hot lead if you call them now!")
     
     else
     
