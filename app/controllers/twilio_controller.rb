@@ -51,11 +51,8 @@ class TwilioController < ApplicationController
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\n Please follow this link to take advantage of our current specials!  http://bit.ly/1jDgkFe \n\n Also, don't forget to schedule your next visit, with our easy scheduling process! http://bit.ly/1M85nSn")
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => dealership.phonenumber, :body => " \n\nAnother service customer has taken advantage of FYRE! \n\n #{from_number} requested your service specials and can now easily schedule their service visit \n\n       A complete list of all customers using this tool will be emailed every Monday am!")
 
-    elsif @car_requested.present?
-      if @car_requested.link2.nil?
-        @url = client.shorten(@car_requested.link)
-        @car_requested.link2 = @url.short_url.to_s
-        @car_requested.save!
+      if(car_requested.last.dealership_id)
+        dealership = Dealership.find(car_requested.last.dealership_id)
       end
 
       if(@car_requested.dealership_id)
