@@ -44,7 +44,7 @@ class TwilioController < ApplicationController
 
     elsif message_body.downcase == 'service'
 
-      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\n Please follow this link to take advantage of our current specials!  http://bit.ly/1jDgkFe \n\n Also, don't forget to schedule your next visit, with our easy scheduling process! http://bit.ly/1M85nSn")
+      @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => from_number, :body => " \n\nThank you for contacting the service department at Day Apollo Subaru!\n\n Please follow this link to take advantage of our current specials!  http://bit.ly/1jDgkFe \n\n Also, don't forget to schedule your next visit, with our easy scheduling process! http://bit.ly/1M85nSn")
       @twilio_client.account.messages.create(:from => "+1#{twilio_phone_number}", :to => '4123035888', :body => " \n\nAnother service customer has taken advantage of FYRE! \n\n #{from_number} requested your service specials and can now easily schedule their service visit \n\n       A complete list of all customers using this tool will be emailed every Monday am!")
 
     elsif @car_requested.present?
